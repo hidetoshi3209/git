@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('title','50');
             $table->integer('price','11');
             $table->string('comment','255');
-            $table->integer('condition','10');
+            $table->integer('condition',);
             $table->string('image','255');
             $table->timestamps();
         });
