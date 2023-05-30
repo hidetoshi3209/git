@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\RegistrationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +17,6 @@ use App\Http\Controllers\DisplayController;
 // });
 
 Route::get('/', [DisplayController::class, 'index']);
+Route::get('/mypage', [DisplayController::class, 'indexmypage']);
+Route::get('/create_goods' ,[RegistrationController::class,'createGoodsForm'])->name('create.goods');
+Route::post('/create_goods' ,[RegistrationController::class,'createGoods']);

@@ -38,6 +38,10 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#">新規会員登録</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">出品</a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
