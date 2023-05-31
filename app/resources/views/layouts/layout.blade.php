@@ -34,12 +34,13 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">ログイン</a>
                         </li>
-                        <span>/</span>
                         <li class="nav-item">
                             <a class="nav-link active" href="#">新規会員登録</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">出品</a>
+                            <a class="nav-link active" href="[[ route('create.goods') }}">
+                                <button type="button" class="btn btn-danger">出品</button>
+                            </a>
                         </li>
 
                     </ul>
