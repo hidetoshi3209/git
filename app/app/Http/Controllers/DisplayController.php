@@ -25,4 +25,13 @@ class DisplayController extends Controller
             'products' =>$products,
         ]);
     }
+
+    public function productDetail(int $productId) {
+        $product = new Product;
+        $where = $product->where('id','=',$productId)->get();
+
+        return view('product',[
+            'product' => $where,
+        ]);
+    }
 }

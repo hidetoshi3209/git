@@ -38,7 +38,7 @@
                             <a class="nav-link active" href="#">新規会員登録</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="[[ route('create.goods') }}">
+                            <a class="nav-link active" href="[[ route('create.product') }}">
                                 <button type="button" class="btn btn-danger">出品</button>
                             </a>
                         </li>

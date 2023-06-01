@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <form action="{{ route('create.goods')}}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('create.product')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="image" class="form-label">出品画像</label>

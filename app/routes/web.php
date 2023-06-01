@@ -18,5 +18,6 @@ use App\Http\Controllers\RegistrationController;
 
 Route::get('/', [DisplayController::class, 'index']);
 Route::get('/mypage', [DisplayController::class, 'indexmypage']);
-Route::get('/create_goods' ,[RegistrationController::class,'createGoodsForm'])->name('create.goods');
-Route::post('/create_goods' ,[RegistrationController::class,'createGoods']);
+Route::get('/product/{id}/detail', [DisplayController::class, 'productDetail'])->name('product.detail');
+Route::get('/create_product' ,[RegistrationController::class,'createProductForm'])->name('create.product');
+Route::post('/create_product' ,[RegistrationController::class,'createProduct']);

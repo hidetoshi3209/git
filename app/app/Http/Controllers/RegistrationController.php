@@ -8,7 +8,7 @@ use App\Product;
 class RegistrationController extends Controller
 {
     public function createGoodsForm() {
-        return view('goods_form');
+        return view('product_form');
     }
 
     public function createGoods(Request $request) {
