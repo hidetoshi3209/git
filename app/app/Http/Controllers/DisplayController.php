@@ -27,11 +27,10 @@ class DisplayController extends Controller
     }
 
     public function productDetail(int $productId) {
-        $product = new Product;
-        $where = $product->where('id','=',$productId)->get();
+        $product = Product::find($productId);
 
         return view('product',[
-            'product' => $where,
+            'product' => $product,
         ]);
     }
 }

@@ -7,11 +7,11 @@ use App\Product;
 
 class RegistrationController extends Controller
 {
-    public function createGoodsForm() {
+    public function createProductForm() {
         return view('product_form');
     }
 
-    public function createGoods(Request $request) {
+    public function createProduct(Request $request) {
         $product = new Product;
 
         $product->image = $request->image;
