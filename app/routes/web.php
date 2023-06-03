@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RegistrationController;
+use Illuminate\Contracts\Routing\Registrar;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +23,5 @@ Route::get('/mypage', [DisplayController::class, 'indexmypage']);
 Route::get('/product/{id}/detail', [DisplayController::class, 'productDetail'])->name('product.detail');
 Route::get('/create_product' ,[RegistrationController::class,'createProductForm'])->name('create.product');
 Route::post('/create_product' ,[RegistrationController::class,'createProduct']);
+Route::get('/buy/{id}' .[RegistrationController::class,'buyProductForm'])->name('buy.product');
+Route::post('/buy/{id}' .[RegistrationController::class,'buyProduct']);

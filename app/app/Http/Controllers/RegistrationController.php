@@ -14,7 +14,15 @@ class RegistrationController extends Controller
     public function createProduct(Request $request) {
         $product = new Product;
 
-        $product->image = $request->image;
+        $dir = 'product';
+
+        // アップロードされたファイル名を取得
+        $file_name = $request->file('image')->getClientOriginalName();
+
+        // 取得したファイル名で保存
+        $request->file('image')->storeAs('public/' . $dir, $file_name);
+        
+        $product->image = $file_name;
         $product->title = $request->title;
         $product->price = $request->price;
         $product->comment = $request->comment;
