@@ -9,7 +9,7 @@
                 <div class="p-2 bd-highlight">￥{{$product['price']}}</div>
                 <div class="p-2 bd-highlight">{{$product['comment']}}</div>
                 <div class="p-2 bd-highlight">{{$product['condition']}}</div>
-                <a href="{{ route('buy.product' , ['id' =>$product['id']]) }}">
+                <a href="{{ route('buy.product' , ['id' => $product['id']]) }}">
                     <button class="btn btn-danger">購入手続きへ</button>
                 </a>
             </div>

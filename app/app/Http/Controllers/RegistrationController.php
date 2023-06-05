@@ -32,4 +32,13 @@ class RegistrationController extends Controller
 
         return redirect('/mypage');
     }
+
+    public function buyProductForm($productId) {
+        // $product = Product::find($productId);
+
+        // return view('buy_form',[
+        //     'product' => $product,
+        // ]);
+        dd($productId);
+    }
 }
