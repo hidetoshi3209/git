@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\User;
 
 class RegistrationController extends Controller
 {
@@ -34,11 +35,25 @@ class RegistrationController extends Controller
     }
 
     public function buyProductForm($productId) {
-        // $product = Product::find($productId);
+        $product = Product::find($productId);
 
-        // return view('buy_form',[
-        //     'product' => $product,
-        // ]);
-        dd($productId);
+        return view('buy_form',[
+            'product' => $product,
+        ]);
+        
+    }
+
+    public function buyProduct(int $id, Request $request) {
+        $user = new User;
+        $record = $user->find($id);
+
+        $user->name =$request->name;
+        $user->tel =$request->tel;
+        $user->postcode =$request->postcode;
+        $user->address =$request->address;
+
+        $user->save();
+
+        return redirect('/mypage');
     }
 }
