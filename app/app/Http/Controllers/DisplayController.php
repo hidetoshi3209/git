@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Product;
+use App\user;
 
 class DisplayController extends Controller
 {
@@ -32,5 +33,17 @@ class DisplayController extends Controller
         return view('product',[
             'product' => $product,
         ]);
+    }
+
+    public function buyHistory() {
+        $product = new Product;
+        $user = new User;
+        $buy_product = $product->with('buy')->first();
+        $buy_user = $user->with('buy')->first();
+        dd($buy_user);
+        return view('buy_history');
+
+        
+
     }
 }

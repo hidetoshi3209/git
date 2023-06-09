@@ -31,7 +31,7 @@
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">住所</label>
-                <textarea class='form-control' name='address'></textarea>
+                <input type="text" class='form-control' name='address'>
             </div>
             <div class='d-flex justify-content-around mt-3'>
                 <a href="{{route('product.detail', ['id' => $product['id']] )}}">
