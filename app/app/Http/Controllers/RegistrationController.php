@@ -35,16 +35,18 @@ class RegistrationController extends Controller
     }
 
     public function buyProductForm($productId) {
-        $product = Product::find($productId);
-
+        
+        $params = Product::where('id',$productId)->where('user_id','1')->get();
+        // dd($params);
         return view('buy_form',[
-            'product' => $product,
+            'product' => $params,
         ]);
         
     }
 
     public function buyProduct(Request $request) {
         $user = new User;
+
 
         $user->name = $request->name;
         $user->tel = $request->tel;

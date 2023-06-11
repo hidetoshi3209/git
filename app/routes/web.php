@@ -17,9 +17,6 @@ use Illuminate\Contracts\Routing\Registrar;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Auth::routes();
-
-Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/', [DisplayController::class, 'index']);
     Route::get('/mypage', [DisplayController::class, 'indexmypage']);
@@ -34,4 +31,3 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/edit_profile/{id}',[RegistrationController::class,'editProfileForm'])->name('edit.profile');
     Route::post('/edit_profile/{id}',[RegistrationController::class,'editProfile']);
     Route::get('/buy_history',[DisplayController::class,'buyHistory']);
-});
