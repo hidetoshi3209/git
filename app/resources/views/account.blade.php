@@ -33,12 +33,12 @@
                 <input type="text" class='form-control' name='address' value="{{$account['address']}}">
             </div>
             <div class='d-flex justify-content-around mt-3'>
-                    <button class="btn btn-danger">更新</button>
+                <button class="btn btn-danger">更新</button>
+            </div>
+            </form>
                 <a href="{{route('delete.account',['id' => $account['id']] )}}">
                     <button class="btn btn-secondary">アカウント削除</button>
                 </a>
-            </div>
-        </form>
     </div>
 </div>
 @endsection

@@ -13,9 +13,10 @@
         </div>
     </div>
 </div>
+
 <div class="container">
     <div class="row justify-content-center">
-        <form action="{{ route('buy.product',['id' => $product['id']])}}" method="post">
+        <form action="{{ route('buy.product',['id' => $product['id']]) }}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">氏名</label>

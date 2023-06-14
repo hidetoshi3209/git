@@ -25,27 +25,56 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                
-                <a class="navbar-brand" href="">メルカリ</a>
+                @if(Auth::check())
+                <a class="navbar-brand" href="{{ url('/mypage') }}">メルカリ</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="">ユーザー名</a>
+                            <a class="nav-link active" aria-current="page" href="">{{ Auth::user()->name }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">ログアウト</a>
-                            <form action="" method="post" style="display: none;">
+                            <form action="{{ route('logout') }}" method="post" style="display: none;">
+                                @csrf
+                            </form>
+                            <script>
+                                document.getElementById('logout').addEventListener('click', function(event){
+                                    event.preventDefault();
+                                    document.getElementById('logout-form').submit();
+                                });
+                            </script>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="">
+                            <a class="nav-link active" href="{{ route('create.product') }}">
                                 <button type="button" class="btn btn-danger">出品</button>
                             </a>
                         </li>
                     </ul>
                 </div>
+                @else
+                <a class="navbar-brand" href="{{ url('/') }}">メルカリ</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('login') }}">ログイン</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('register') }}">会員登録</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ route('create.product') }}">
+                                <button type="button" class="btn btn-danger">出品</button>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                @endif
             </div>
         </nav>
     </div>

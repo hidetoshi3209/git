@@ -37,8 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function buy() {
-        return $this->hasMany('App\Buy');
+    public function buys() {
+        return $this->belongsTo('App\Buy');
     }
 
     public function product() {

@@ -17,17 +17,29 @@ use Illuminate\Contracts\Routing\Registrar;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+    Auth::routes();
 
-    Route::get('/', [DisplayController::class, 'index']);
-    Route::get('/mypage', [DisplayController::class, 'indexmypage']);
-    Route::get('/product/{id}/detail', [DisplayController::class, 'productDetail'])->name('product.detail');
-    Route::get('/create_product' ,[RegistrationController::class,'createProductForm'])->name('create.product');
-    Route::post('/create_product' ,[RegistrationController::class,'createProduct']);
-    Route::get('/buy/{id}' ,[RegistrationController::class,'buyProductForm'])->name('buy.product');
-    Route::post('/buy/{id}' ,[RegistrationController::class,'buyProduct']);
-    Route::get('/account/{id}' ,[RegistrationController::class,'accountForm'])->name('account');
-    Route::post('/account/{id}' ,[RegistrationController::class,'account']);
-    Route::get('/delete_account/{id}',[RegistrationController::class,'deleteAccountForm'])->name('delete.account');
-    Route::get('/edit_profile/{id}',[RegistrationController::class,'editProfileForm'])->name('edit.profile');
-    Route::post('/edit_profile/{id}',[RegistrationController::class,'editProfile']);
-    Route::get('/buy_history',[DisplayController::class,'buyHistory']);
+    Route::group(['middleware' => 'auth'],function() {
+
+        Route::get('/', [DisplayController::class, 'index']);
+        Route::get('/mypage', [DisplayController::class, 'indexmypage']);
+        Route::get('/product/{id}/detail', [DisplayController::class, 'productDetail'])->name('product.detail');
+        Route::get('/create_product' ,[RegistrationController::class,'createProductForm'])->name('create.product');
+        Route::post('/create_product' ,[RegistrationController::class,'createProduct']);
+        Route::get('/buy/{id}' ,[RegistrationController::class,'buyProductForm'])->name('buy.product');
+        Route::post('/buy/{id}' ,[RegistrationController::class,'buyProduct']);
+        Route::get('/account/{id}' ,[RegistrationController::class,'accountForm'])->name('account');
+        Route::post('/account/{id}' ,[RegistrationController::class,'account']);
+        Route::get('/delete_account/{id}',[RegistrationController::class,'deleteAccountForm'])->name('delete.account');
+        Route::get('/edit_profile/{id}',[RegistrationController::class,'editProfileForm'])->name('edit.profile');
+        Route::post('/edit_profile/{id}',[RegistrationController::class,'editProfile']);
+        Route::get('/buy_history',[DisplayController::class,'buyHistory']);
+        Route::get('/profit_history',[DisplayController::class,'profitHistory']);
+        Route::get('/owner',[DisplayController::class,'indexowner']);
+        Route::get('/owner/user_detail/{id}',[DisplayController::class,'userDetail'])->name('user.detail');
+        Route::get('/owner/goods_detail/{id}',[DisplayController::class,'goodsDetail'])->name('goods.detail');
+        Route::get('/delete_account_flg/{id}',[RegistrationController::class,'deleteAccountflgForm'])->name('delete.accountflg');
+        Route::get('/delete_goods_flg/{id}',[RegistrationController::class,'deleteGoodsflgForm'])->name('delete.goodsflg');
+        Route::get('/owner/account/{id}',[RegistrationController::class,'ownerAccountForm'])->name('owner.account');
+        Route::post('/owner/account/{id}',[RegistrationController::class,'ownerAccount']);
+    });

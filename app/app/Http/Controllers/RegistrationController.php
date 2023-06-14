@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\User;
+use App\Buy;
+use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
@@ -35,8 +37,8 @@ class RegistrationController extends Controller
     }
 
     public function buyProductForm($productId) {
-        
-        $params = Product::where('id',$productId)->where('user_id','1')->get();
+
+        $params = Product::where('id',$productId)->first();
         // dd($params);
         return view('buy_form',[
             'product' => $params,
@@ -44,9 +46,8 @@ class RegistrationController extends Controller
         
     }
 
-    public function buyProduct(Request $request) {
+    public function buyProduct(Request $request,$productId) {
         $user = new User;
-
 
         $user->name = $request->name;
         $user->tel = $request->tel;
@@ -54,6 +55,14 @@ class RegistrationController extends Controller
         $user->address = $request->address;
 
         $user->save();
+
+        $buy = new Buy;
+
+        // $buy->user_id = Auth::id();
+        $buy->user_id = 1;
+        $buy->product_id = $productId;
+
+        $buy->save();
 
         return redirect('/mypage');
     }
@@ -117,5 +126,50 @@ class RegistrationController extends Controller
         $record->save();
 
         return redirect('/mypage');
+    }
+
+    public function deleteAccountflgForm(int $id, Request $request){
+        $instance = new User;
+        $record = $instance->find($id);
+        
+        $record->del_flg = 1;
+        $record->del_flg = $request->del_flg;
+
+        $record->save();
+
+        return redirect('/owner');
+    }
+
+    public function deleteGoodsflgForm(int $id){
+        $instance = new Product;
+        $record = $instance->find($id);
+
+        $record->del_flg = 1;
+        $record->save();
+
+        return redirect('/owner');
+    }
+
+    public function ownerAccountForm(int $id) {
+        $user = new User;
+        $result = $user->find($id);
+
+        return view('owner_account',[
+            'account' => $result,
+        ]);
+    }
+
+    public function ownerAccount(int $id, Request $request) {
+        $instance = new user;
+        $record = $instance->find($id);
+
+        $columns = ['name','email','password'];
+
+        foreach($columns as $column) {
+            $record->$column = $request->$column;
+        }
+        $record->save();
+
+        return redirect('/owner');
     }
 }
