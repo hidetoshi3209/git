@@ -22,10 +22,10 @@
     @yield('stylesheet')
 </head>
 <body>
+    @if(Auth::check())
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                @if(Auth::check())
                 <a class="navbar-brand" href="{{ url('/mypage') }}">メルカリ</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@
                             <a class="nav-link active" aria-current="page" href="">{{ Auth::user()->name }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">ログアウト</a>
+                            <a class="nav-link active" aria-current="page" href="{{ url('/') }}">ログアウト</a>
                             <form action="{{ route('logout') }}" method="post" style="display: none;">
                                 @csrf
                             </form>
@@ -54,7 +54,13 @@
                         </li>
                     </ul>
                 </div>
-                @else
+            </div>
+        </nav>
+    </div>
+    @else
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">メルカリ</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -74,10 +80,10 @@
                         </li>
                     </ul>
                 </div>
-                @endif
             </div>
         </nav>
     </div>
+    @endif
     @yield('content')
 </body>
 </html>

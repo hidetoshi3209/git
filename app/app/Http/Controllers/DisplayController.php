@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class DisplayController extends Controller
 {
     public function index() {
-        // $product = new Product;
-        // $products = $product->all();
-        $product = Product::query();
-        $products = $product->where('user_id',Auth::id())->get();
+        $product = new Product;
+        $products = $product->all();
 
         return view('home',[
             'products' =>$products,
@@ -23,9 +21,11 @@ class DisplayController extends Controller
     }
 
     public function indexmypage() {
-        $product = new Product;
-        $products = $product->all();
+        // $product = new Product;
+        // $products = $product->all();
 
+        $product = Product::query();
+        $products = $product->where('user_id',Auth::id())->get();
         return view('main',[
             'products' =>$products,
         ]);

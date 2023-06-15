@@ -31,7 +31,7 @@ class RegistrationController extends Controller
         $product->comment = $request->comment;
         $product->condition = $request->condition;
 
-        $product->save();
+        Auth::user()->product()->save($product);
 
         return redirect('/mypage');
     }
