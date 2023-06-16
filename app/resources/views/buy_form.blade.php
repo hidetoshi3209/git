@@ -35,7 +35,7 @@
                 <input type="text" class='form-control' name='address'>
             </div>
             <div class='d-flex justify-content-around mt-3'>
-                <a href="{{route('product.detail', ['id' => $product['id']] )}}">
+                <a href="{{route('product.detail', ['product' => $product['id']] )}}">
                     <button class="btn btn-danger">戻る</button>
                 </a>
                     <button class="btn btn-secondary">購入</button>

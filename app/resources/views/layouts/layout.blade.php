@@ -33,11 +33,11 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="">{{ Auth::user()->name }}</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('account', Auth::id()) }}">{{ Auth::user()->name }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ url('/') }}">ログアウト</a>
-                            <form action="{{ route('logout') }}" method="post" style="display: none;">
+                            <a id="logout" class="nav-link active" aria-current="page" href="{{ url('/') }}">ログアウト</a>
+                            <form action="{{ route('logout') }}" method="post" style="display: none;" id="logout-form">
                                 @csrf
                             </form>
                             <script>

@@ -3,19 +3,16 @@
 <main class="p-3">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a href="#goods" class="nav-link active" data-bs-toggle="tab">出品一覧</a>
+            <a href="{{ url('/mypage') }}" class="nav-link active">出品一覧</a>
         </li>
         <li class="nav-item">
-            <a href="#buys" class="nav-link" data-bs-toggle="tab">購入履歴</a>
+            <a href="{{ url('/buy_history') }}" class="nav-link">購入履歴</a>
         </li>
         <li class="nav-item">
-            <a href="#profit" class="nav-link" data-bs-toggle="tab">売上履歴</a>
+            <a href="{{ url('/profit_history') }}" class="nav-link">売上履歴</a>
         </li>
         <li class="nav-item">
-            <a href="#like" class="nav-link" data-bs-toggle="tab">いいね一覧</a>
-        </li>
-        <li class="nav-item">
-            <a href="#follow" class="nav-link" data-bs-toggle="tab">フォロー一覧</a>
+            <a href="" class="nav-link">いいね一覧</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -62,7 +59,7 @@
                                     <div class="col-4">
                                         <div class="d-flex flex-column bd-highlight mb-3">
                                             <div class="p-2 bd-highlight">
-                                                <a href="{{ route('buy.product', ['id' => $product['id']]) }}"><img src="{{ asset('storage/product/'.$product['image']) }}"></a>
+                                                <a href="{{ route('buy.product', ['product' => $product['id']]) }}"><img src="{{ asset('storage/product/'.$product['image']) }}"></a>
                                             </div>
                                             <div class="p-2 bd-highlight">￥{{$product['price']}}</div>
                                             <div class="p-2 bd-highlight">{{$product['title']}}</div>
@@ -75,19 +72,6 @@
                         </div>
                     </div>
         </div>
-        </div>
-        <!-- 購入履歴 -->
-        <div id="buys" class="tab-pane">
-            <p>購入履歴</p>
-        </div>
-        <!-- 売上履歴 -->
-        <div id="profit" class="tab-pane">
-        </div>
-        <!-- いいね一覧 -->
-        <div id="like" class="tab-pane">
-        </div>
-        <!-- フォロー一覧 -->
-        <div id="follow" class="tab-pane">
         </div>
     </div>
 </main>

@@ -8,7 +8,7 @@
             <div class="col-6">
                 <div class="d-flex flex-column bd-highlight mb-3">
                     <div class="p-2 bd-highlight">
-                        <a href="{{ route('user.detail',['id' => $user['id']]) }}">
+                        <a href="{{ route('user.detail',['user' => $user['id']]) }}">
                             <img src="{{ asset('storage/profile/'.$user['image']) }}">
                         </a>
                     </div>
@@ -25,7 +25,7 @@
             <div class="col-6">
                 <div class="d-flex flex-column bd-highlight mb-3">
                     <div class="p-2 bd-highlight">
-                        <a href="{{ route('goods.detail',['id' => $product['id']]) }}">
+                        <a href="{{ route('goods.detail',['product' => $product['id']]) }}">
                             <img src="{{ asset('storage/product/'.$product['image']) }}"></a>
                         </a>
                     </div>

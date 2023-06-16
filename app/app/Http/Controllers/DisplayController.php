@@ -26,13 +26,15 @@ class DisplayController extends Controller
 
         $product = Product::query();
         $products = $product->where('user_id',Auth::id())->get();
+        $roles =User::where('role','0');
+
         return view('main',[
             'products' =>$products,
+            'role' => $roles,
         ]);
     }
 
-    public function productDetail(int $productId) {
-        $product = Product::find($productId);
+    public function productDetail(Product $product) {
 
         return view('product',[
             'product' => $product,
@@ -43,8 +45,8 @@ class DisplayController extends Controller
         $instance = new Buy;
 
         $history = $instance->join('products','buys.product_id','products.id')->join('users','buys.user_id','users.id')->get();
-        $record = $history->where('user_id','!=','1');
-        
+        $record = $history->where('user_id','!=',Auth::id());
+
         return view('buy_history',[
             'records' => $record,
         ]);
@@ -54,7 +56,7 @@ class DisplayController extends Controller
         $instance = new Buy;
 
         $history = $instance->join('products','buys.product_id','products.id')->join('users','buys.user_id','users.id')->get();
-        $record = $history->where('user_id','1');
+        $record = $history->where('user_id',Auth::id());
         
         return view('profit_history',[
             'records' => $record,
@@ -67,26 +69,26 @@ class DisplayController extends Controller
 
         $users = $user->all();
         $products = $product->all();
+        $roles =User::where('role','1');
 
         return view('ownertop',[
             'users' => $users,
             'products' => $products,
+            'role' => $roles,
         ]);
     }
 
-    public function userDetail(int $id) {
-        $user = User::find($id);
+    public function userDetail(User $user) {
 
         return view('account_stop',[
             'user' => $user,
         ]);
     }
 
-    public function goodsDetail(int $id) {
-        $goods = Product::find($id);
+    public function goodsDetail(Product $product) {
 
         return view('goods_stop',[
-            'goods' => $goods,
+            'goods' => $product,
         ]);
     }
 }

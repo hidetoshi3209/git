@@ -2,12 +2,12 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <div class="p-2 bd-highlight"><img src="{{ asset('storage/profile/'.$account['image']) }}"></div>
+        <a href="{{route('edit.profile',['id' => $account['id']] )}}">
+            <button class="btn btn-secondary">プロフィール変更</button>
+        </a>
         <form action="" method="post">
             @csrf
-            <div class="p-2 bd-highlight"><img src="{{ asset('storage/profile/'.$account['image']) }}"></div>
-            <a href="{{route('edit.profile',['id' => $account['id']] )}}">
-                <button class="btn btn-secondary">プロフィール変更</button>
-            </a>
             <div class="mb-3">
                 <label for="name" class="form-label">氏名</label>
                 <input type="text" class="form-control" name="name" value="{{$account['name']}}">
@@ -16,10 +16,10 @@
                 <label for="email" class="form-label">メールアドレス</label>
                 <input type="text" class="form-control" name="email" value="{{$account['email']}}">
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label for="password" class="form-label">パスワード</label>
                 <input type="text" class="form-control" name="password" value="{{$account['password']}}">
-            </div>
+            </div> -->
             <div class="mb-3">
                 <label for="tel" class="form-label">電話番号</label>
                 <input type="text" class="form-control" name="tel" value="{{$account['tel']}}">

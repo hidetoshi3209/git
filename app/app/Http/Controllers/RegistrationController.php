@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterProduct;
+use App\Http\Requests\EditAccount;
 use App\Product;
 use App\User;
 use App\Buy;
@@ -14,7 +16,7 @@ class RegistrationController extends Controller
         return view('product_form');
     }
 
-    public function createProduct(Request $request) {
+    public function createProduct(RegisterProduct $request) {
         $product = new Product;
 
         $dir = 'product';
@@ -39,7 +41,7 @@ class RegistrationController extends Controller
     public function buyProductForm($productId) {
 
         $params = Product::where('id',$productId)->first();
-        // dd($params);
+
         return view('buy_form',[
             'product' => $params,
         ]);
@@ -49,7 +51,7 @@ class RegistrationController extends Controller
     public function buyProduct(Request $request,$productId) {
         $user = new User;
 
-        $user->name = $request->name;
+        $user->name = Auth::name();
         $user->tel = $request->tel;
         $user->postcode = $request->postcode;
         $user->address = $request->address;
@@ -58,59 +60,54 @@ class RegistrationController extends Controller
 
         $buy = new Buy;
 
-        // $buy->user_id = Auth::id();
-        $buy->user_id = 1;
+        $buy->user_id = Auth::id();
         $buy->product_id = $productId;
 
-        $buy->save();
+        // $buy->save();
+        Auth::user()->buys()->save($buy);
 
         return redirect('/mypage');
     }
 
-    public function accountForm(int $id) {
-        $user = new User;
-        $result = $user->find($id);
-
+    public function accountForm(User $user) {
+        // dd($user['name']);
         return view('account',[
-            'account' => $result,
+            'account' => $user,
         ]);
     }
 
-    public function account(int $id, Request $request) {
-        $instance = new user;
-        $record = $instance->find($id);
-
+    public function account(EditAccount $request,User $user) {
+        
         $columns = ['name','email','password','tel','postcode','address'];
 
         foreach($columns as $column) {
-            $record->$column = $request->$column;
+            $user->$column = $request->$column;
         }
-        $record->save();
+        $user->save();
 
         return redirect('/mypage');
     }
 
-    public function deleteAccountForm(int $id) {
+    public function deleteAccountForm() {
         $instance = new User;
-        $record = $instance->find($id);
+        $record = $instance->find(Auth::id());
 
         $record->delete();
         return redirect('/');
     }
 
-    public function editProfileForm(int $id) {
+    public function editProfileForm() {
         $instance = new User;
-        $record =$instance->find($id);
+        $record =$instance->find(Auth::id());
 
         return view('profile',[
             'profile' => $record,
         ]);
     }
 
-    public function editProfile(int $id,Request $request) {
+    public function editProfile(Request $request) {
         $user = new User;
-        $record =$user->find($id);
-        // dd($record);
+        $record =$user->find(Auth::id());
 
         $dir = 'profile';
 
@@ -150,18 +147,18 @@ class RegistrationController extends Controller
         return redirect('/owner');
     }
 
-    public function ownerAccountForm(int $id) {
+    public function ownerAccountForm() {
         $user = new User;
-        $result = $user->find($id);
+        $result = $user->find(Auth::id());
 
         return view('owner_account',[
             'account' => $result,
         ]);
     }
 
-    public function ownerAccount(int $id, Request $request) {
+    public function ownerAccount(Request $request) {
         $instance = new user;
-        $record = $instance->find($id);
+        $record = $instance->find(Auth::id());
 
         $columns = ['name','email','password'];
 

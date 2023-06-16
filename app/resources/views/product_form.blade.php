@@ -1,24 +1,31 @@
 @extends('layouts.layout')
 @section('content')
 <div class="container">
+    @if($errors->any())
+    <div class="alert alert-danger">
+        @foreach($errors->all() as $message)
+            <p>{{ $message }}</p>
+        @endforeach
+    </div>
+    @endif
     <div class="row justify-content-center">
         <form action="{{ route('create.product')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="image" class="form-label">出品画像</label>
-                <input type="file" class="form-control" name="image">
+                <input type="file" class="form-control" name="image" value="{{ old('image') }}">
             </div>
             <div class="mb-3">
                 <label for="title" class="form-label">商品名</label>
-                <input type="text" class="form-control" name="title">
+                <input type="text" class="form-control" name="title" value="{{ old('title') }}">
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">価格</label>
-                <input type="text" class="form-control" name="price">
+                <input type="text" class="form-control" name="price" value="{{ old('price') }}">
             </div>
             <div class="mb-3">
                 <label for="comment" class="form-label">商品説明</label>
-                <textarea class='form-control' name='comment'></textarea>
+                <textarea class='form-control' name='comment' ></textarea>
             </div>
             <div class="mb-3">
                 <label for="condition" class="form-label">商品の状態</label>
