@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
     <div class="p-2 bd-highlight"><img src="{{ asset('storage/profile/'.$profile['image']) }}"></div>
-        <form action="{{ route('edit.profile',['id' => $profile['id']] )}}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('edit.profile',['user' => $profile['id']] )}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="image" class="form-label">ユーザーアイコン</label>

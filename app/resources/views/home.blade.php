@@ -8,7 +8,7 @@
                         @csrf
                             <div class="bd-highlight my-3 mx-3">
                                 <div class="my-3">
-                                    <input class="form-control me-2" type="search" placeholder="何をおさがしですか？" aria-label="Search">
+                                    <input class="form-control me-2" type="text" placeholder="商品名を入力" aria-label="Search" id="title" name="title" value="{{$title}}">
                                 </div>
                                 <div class="d-flex justify-content-center flex-row bd-highlight">
                                     <select>
@@ -39,6 +39,7 @@
                         <div class="container">
                             <div class="row">
                             @foreach($products as $product)
+                                @if($product['del_flg'] == 0)
                                 <div class="col-4">
                                     <div class="d-flex flex-column bd-highlight mb-3">
                                         <div class="p-2 bd-highlight">
@@ -48,6 +49,8 @@
                                         <div class="p-2 bd-highlight">{{$product['title']}}</div>
                                     </div>
                                 </div>
+                                @else
+                                @endif
                             @endforeach
                             </div>
                         </div>               

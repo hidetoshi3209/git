@@ -1,9 +1,16 @@
 @extends('layouts.layout')
 @section('content')
 <div class="container">
+    @if($errors->any())
+    <div class="alert alert-danger">
+        @foreach($errors->all() as $message)
+            <p>{{ $message }}</p>
+        @endforeach
+    </div>
+    @endif
     <div class="row justify-content-center">
         <div class="p-2 bd-highlight"><img src="{{ asset('storage/profile/'.$account['image']) }}"></div>
-        <a href="{{route('edit.profile',['id' => $account['id']] )}}">
+        <a href="{{route('edit.profile',['user' => $account['id']] )}}">
             <button class="btn btn-secondary">プロフィール変更</button>
         </a>
         <form action="" method="post">
@@ -36,7 +43,7 @@
                 <button class="btn btn-danger">更新</button>
             </div>
             </form>
-                <a href="{{route('delete.account',['id' => $account['id']] )}}">
+                <a href="{{route('delete.account',['user' => $account['id']] )}}">
                     <button class="btn btn-secondary">アカウント削除</button>
                 </a>
     </div>

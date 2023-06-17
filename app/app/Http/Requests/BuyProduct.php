@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class EditAccount extends FormRequest
+class BuyProduct extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,8 @@ class EditAccount extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required',
+            'tel' => 'integer',
+            'postcode' => 'integer'
         ];
     }
 }

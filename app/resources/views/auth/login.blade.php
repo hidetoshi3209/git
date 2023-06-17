@@ -23,7 +23,7 @@
                                 <label for="password">パスワード</label>
                                 <input type="password" class="form-control" id="password" name="password" />
                             </div>
-                            <div class="text-right">
+                            <div class="text-center mt-3">
                                 <button type="submit" class="btn btn-primary">送信</button>
                             </div>
                         </form>

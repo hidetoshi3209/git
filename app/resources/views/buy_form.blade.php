@@ -15,20 +15,27 @@
 </div>
 
 <div class="container">
+    @if($errors->any())
+    <div class="alert alert-danger">
+        @foreach($errors->all() as $message)
+            <p>{{ $message }}</p>
+        @endforeach
+    </div>
+    @endif
     <div class="row justify-content-center">
-        <form action="{{ route('buy.product',['id' => $product['id']]) }}" method="post">
+        <form action="{{ route('buy.product',['product' => $product['id']]) }}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">氏名</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
             </div>
             <div class="mb-3">
                 <label for="tel" class="form-label">電話番号</label>
-                <input type="text" class="form-control" name="tel">
+                <input type="text" class="form-control" name="tel" value="{{ old('tel') }}">
             </div>
             <div class="mb-3">
                 <label for="postcode" class="form-label">郵便番号</label>
-                <input type="text" class="form-control" name="postcode">
+                <input type="text" class="form-control" name="postcode" value="{{ old('postcode') }}">
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">住所</label>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterProduct;
 use App\Http\Requests\EditAccount;
+use App\Http\Requests\BuyProduct;
 use App\Product;
 use App\User;
 use App\Buy;
@@ -38,17 +39,15 @@ class RegistrationController extends Controller
         return redirect('/mypage');
     }
 
-    public function buyProductForm($productId) {
-
-        $params = Product::where('id',$productId)->first();
+    public function buyProductForm(Product $product) {
 
         return view('buy_form',[
-            'product' => $params,
+            'product' => $product,
         ]);
         
     }
 
-    public function buyProduct(Request $request,$productId) {
+    public function buyProduct(BuyProduct $request,$productId) {
         $user = new User;
 
         $user->name = Auth::name();
@@ -88,26 +87,20 @@ class RegistrationController extends Controller
         return redirect('/mypage');
     }
 
-    public function deleteAccountForm() {
-        $instance = new User;
-        $record = $instance->find(Auth::id());
+    public function deleteAccountForm(User $user) {
 
-        $record->delete();
+        $user->delete();
         return redirect('/');
     }
 
-    public function editProfileForm() {
-        $instance = new User;
-        $record =$instance->find(Auth::id());
+    public function editProfileForm(User $user) {
 
         return view('profile',[
-            'profile' => $record,
+            'profile' => $user,
         ]);
     }
 
-    public function editProfile(Request $request) {
-        $user = new User;
-        $record =$user->find(Auth::id());
+    public function editProfile(Request $request,User $user) {
 
         $dir = 'profile';
 
@@ -117,55 +110,45 @@ class RegistrationController extends Controller
         // 取得したファイル名で保存
         $request->file('image')->storeAs('public/' . $dir, $file_name);
 
-        $record->image = $file_name;
-        $record->profile = $request->profile;
+        $user->image = $file_name;
+        $user->profile = $request->profile;
 
-        $record->save();
+        $user->save();
 
         return redirect('/mypage');
     }
 
-    public function deleteAccountflgForm(int $id, Request $request){
-        $instance = new User;
-        $record = $instance->find($id);
+    public function deleteAccountflgForm(User $user){
         
-        $record->del_flg = 1;
-        $record->del_flg = $request->del_flg;
-
-        $record->save();
+        $user->del_flg = 1;
+        $user->save();
 
         return redirect('/owner');
     }
 
-    public function deleteGoodsflgForm(int $id){
-        $instance = new Product;
-        $record = $instance->find($id);
+    public function deleteGoodsflgForm(Product $product){
 
-        $record->del_flg = 1;
-        $record->save();
+        $product->del_flg = 1;
+        $product->save();
 
         return redirect('/owner');
     }
 
-    public function ownerAccountForm() {
-        $user = new User;
-        $result = $user->find(Auth::id());
+    public function ownerAccountForm(User $user) {
 
         return view('owner_account',[
-            'account' => $result,
+            'account' => $user,
         ]);
     }
 
-    public function ownerAccount(Request $request) {
-        $instance = new user;
-        $record = $instance->find(Auth::id());
+    public function ownerAccount(Request $request,User $user) {
 
         $columns = ['name','email','password'];
 
         foreach($columns as $column) {
-            $record->$column = $request->$column;
+            $user->$column = $request->$column;
         }
-        $record->save();
+        $user->save();
 
         return redirect('/owner');
     }
