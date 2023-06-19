@@ -42,4 +42,5 @@ Route::get('/', [DisplayController::class, 'index']);
         Route::get('/delete_goods_flg/{product}',[RegistrationController::class,'deleteGoodsflgForm'])->name('delete.goodsflg');
         Route::get('/owner/account/{user}',[RegistrationController::class,'ownerAccountForm'])->name('owner.account');
         Route::post('/owner/account/{user}',[RegistrationController::class,'ownerAccount']);
+        Route::post('/like',[RegistrationController::class,'like']);
     });

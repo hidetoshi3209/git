@@ -28,7 +28,9 @@
                                     <input class="form-control me-2" type="text" placeholder="商品名を入力" aria-label="Search" id="title" name="title" value="{{$title}}">
                                     </div>
                                     <div class="d-flex justify-content-center flex-row bd-highlight">
-                                        <select>
+                                        <label for="price" class="mx-3">金額</label>
+                                        <select name="min">
+                                            <option value=""></option>
                                             <option value="100">100円以上</option>
                                             <option value="500">500円以上</option>
                                             <option value="1000">1000円以上</option>
@@ -37,7 +39,8 @@
                                             <option value="10000">10000円以上</option>
                                         </select>
                                         <span>~</span>
-                                        <select>
+                                        <select name="max">
+                                            <option value=""></option>
                                             <option value="100">100円以下</option>
                                             <option value="500">500円以下</option>
                                             <option value="1000">1000円以下</option>
@@ -60,7 +63,7 @@
                                     <div class="col-4">
                                         <div class="d-flex flex-column bd-highlight mb-3">
                                             <div class="p-2 bd-highlight">
-                                                <a href="{{ route('buy.product', ['product' => $product['id']]) }}"><img src="{{ asset('storage/product/'.$product['image']) }}"></a>
+                                                <a href="{{ route('product.detail', ['product' => $product['id']]) }}"><img src="{{ asset('storage/product/'.$product['image']) }}"></a>
                                             </div>
                                             <div class="p-2 bd-highlight">￥{{$product['price']}}</div>
                                             <div class="p-2 bd-highlight">{{$product['title']}}</div>

@@ -27,7 +27,7 @@
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">氏名</label>
-                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-control" name="name" value="{{ $user['name']}}">
             </div>
             <div class="mb-3">
                 <label for="tel" class="form-label">電話番号</label>

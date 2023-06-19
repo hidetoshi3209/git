@@ -31,10 +31,6 @@
                                 <label for="password-confirm">パスワード（確認）</label>
                                 <input type="password" class="form-control" id="password-confirm" name="password_confirmation">
                             </div>
-                            <div class="form-group">
-                                <label for="role">権限</label>
-                                <input type="text" class="form-control" id="role" name="role">
-                            </div>
                             <div class="text-center mt-3">
                                 <button type="submit" class="btn btn-primary">送信</button>
                             </div>

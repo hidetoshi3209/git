@@ -9,6 +9,7 @@ use App\Http\Requests\BuyProduct;
 use App\Product;
 use App\User;
 use App\Buy;
+use App\Like;
 use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
@@ -40,17 +41,20 @@ class RegistrationController extends Controller
     }
 
     public function buyProductForm(Product $product) {
-
+        
+        $users = Auth::user();
+        
         return view('buy_form',[
             'product' => $product,
+            'user' => $users,
         ]);
         
     }
 
     public function buyProduct(BuyProduct $request,$productId) {
-        $user = new User;
-
-        $user->name = Auth::name();
+        $user = Auth::user();
+        
+        $user->name = $request->name;
         $user->tel = $request->tel;
         $user->postcode = $request->postcode;
         $user->address = $request->address;
@@ -62,8 +66,8 @@ class RegistrationController extends Controller
         $buy->user_id = Auth::id();
         $buy->product_id = $productId;
 
-        // $buy->save();
-        Auth::user()->buys()->save($buy);
+        $buy->save();
+        // Auth::user()->buys()->save($buy);
 
         return redirect('/mypage');
     }
@@ -152,4 +156,56 @@ class RegistrationController extends Controller
 
         return redirect('/owner');
     }
+
+    public function like(Request $request) {
+//         $user_id = Auth::id();
+//         // $product_id = $request->product_id;
+//         $already_liked = Like::where('user_id',Auth::id())->where('product_id',$product_id)->first();
+// // dd($already_liked);
+//         if(!$already_liked) {
+//             Like::where('product_id',$product_id)->where('user_id',Auth::id())->delete();
+//         } else {
+            
+//             $like = new Like;
+//             $like->product_id = $product_id;
+//             $like->user_id = $user_id;
+//             $like->save();
+//         }
+
+//         $product_like_count = Product::withCount('like')->findOrFail($product_id)->like_count;
+//         $param = [
+//             'product_like_count' => $product_like_count,
+//         ];
+//         return response()->json($param);
+
+$id = Auth::user()->id;
+$product_id = $request->product;
+$like = new Like;
+$product = Product::findOrFail($product_id);
+
+// 空でない（既にいいねしている）なら
+if ($like->asr($id, $product_id)) {
+    //likesテーブルのレコードを削除
+    $like = Like::where('product_id', $product_id)->where('user_id', $id)->delete();
+} else {
+    //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
+    $like = new Like;
+    $like->product_id = $product_id;
+    $like->user_id = Auth::user()->id;
+    $like->save();
+}
+
+//loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
+$productLikesCount = $product->loadCount('like')->likes_count;
+
+//一つの変数にajaxに渡す値をまとめる
+//今回ぐらい少ない時は別にまとめなくてもいいけど一応。笑
+$json = [
+    'productLikesCount' => $productLikesCount,
+];
+//下記の記述でajaxに引数の値を返す
+return response()->json($json);
+}
+
+
 }
