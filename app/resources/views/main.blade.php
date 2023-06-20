@@ -12,7 +12,7 @@
             <a href="{{ url('/profit_history') }}" class="nav-link">売上履歴</a>
         </li>
         <li class="nav-item">
-            <a href="" class="nav-link">いいね一覧</a>
+            <a href="{{ url('/like/history') }}" class="nav-link">いいね一覧</a>
         </li>
     </ul>
     <div class="tab-content">

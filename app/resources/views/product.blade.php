@@ -21,7 +21,12 @@
                 <div class="p-2 bd-highlight">￥{{$product['price']}}</div>
                 <div class="p-2 bd-highlight">{{$product['comment']}}</div>
                 <div class="p-2 bd-highlight">{{$product['condition']}}</div>
-                
+                <hr>
+                <div class="p-2 bd-highlight">出品者</div>
+                <a href="{{ route('user.profile', ['user' => $product['user_id']]) }}">
+                    <div class="p-2 bd-highlight">{{$user['name']}}</div>
+                </a>
+                <hr>
                 <a href="{{ route('buy.product' , ['product' => $product['id']]) }}">
                     <button class="btn btn-danger">購入手続きへ</button>
                 </a>

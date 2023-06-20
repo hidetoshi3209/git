@@ -92,11 +92,13 @@ class DisplayController extends Controller
     public function productDetail(Product $product) {
         $like = Like::where('product_id',$product->id)->where('user_id',Auth::id())->first();
         $instance = new Like;
-// dd($product);
+        $user = $product->join('users','products.user_id','users.id')->where('user_id',$product['user_id'])->first();
+// dd($user);
         return view('product',[
             'product' => $product,
             'like' => $like,
             'instance' => $instance,
+            'user' => $user,
         ]);
     }
 
@@ -151,5 +153,25 @@ class DisplayController extends Controller
         return view('goods_stop',[
             'goods' => $product,
         ]);
+    }
+
+    public function likeHistory() {
+        $instance = new Product;
+        $record = $instance->join('likes','products.id','likes.product_id')->join('users','likes.user_id','users.id')
+        ->where('likes.user_id',Auth::id())->get();
+
+        return view('like_history',[
+            'likes' => $record,
+        ]);
+    }
+
+    public function userProfile(User $user,Product $product) {
+        $product = Product::where('user_id',$user['id'])->get();
+        // dd($product);
+        return view('user_profile',[
+            'user' => $user,
+            'products' => $product,
+        ]);
+
     }
 }

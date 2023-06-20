@@ -43,4 +43,6 @@ Route::get('/', [DisplayController::class, 'index']);
         Route::get('/owner/account/{user}',[RegistrationController::class,'ownerAccountForm'])->name('owner.account');
         Route::post('/owner/account/{user}',[RegistrationController::class,'ownerAccount']);
         Route::post('/like',[RegistrationController::class,'like']);
+        Route::get('/like/history',[DisplayController::class,'likeHistory']);
+        Route::get('/user_profile/{user}',[DisplayController::class,'userProfile'])->name('user.profile');
     });
