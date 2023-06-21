@@ -30,8 +30,9 @@ class BuyProduct extends FormRequest
     {
         return [
             'name' => 'required',
-            'tel' => 'integer',
-            'postcode' => 'integer'
+            'tel' => 'integer|required|digits_between:10,11',
+            'postcode' => 'integer|required|digits:7',
+            'address' => 'required'
         ];
     }
 }

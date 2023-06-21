@@ -9,6 +9,21 @@
                 </div>
                 <div class="p-2 bd-highlight">{{$user['name']}}</div>
                 <div class="p-2 bd-highlight">{{$user['profile']}}</div>
+                @if(empty($follow))
+                <form action="{{route('follow.update',['follow' => $user['id']])}}" method="post">
+                    @csrf
+                    @method('patch')
+                    <input type="hidden" name="follow_id" value="{{$user['id']}}">
+                    <button type="submit" class="btn btn-success">フォロー</button>
+                </form>
+                @else
+                <form action="{{route('follow.destroy',['follow' => $user['id']])}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="hidden" name="follow_id" value="{{$user['id']}}">
+                    <button type="submit" class="btn btn-success">フォロー解除</button>
+                </form>
+                @endif
             </div>
         </div>
     </div>

@@ -8,6 +8,7 @@ use App\Product;
 use App\user;
 use App\Buy;
 use App\Like;
+use App\Follow;
 use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class DisplayController extends Controller
         $min = $request->min;
         $max = $request->max;
         $product = new Product;
-        $products = $product->all();
+        $products = $product->orderBy('created_at','desc')->get();
 
         if(isset($title)){
             $products = $product->where('title','LIKE',"%{$title}%")->get();
@@ -40,22 +41,49 @@ class DisplayController extends Controller
         ]);
     }
 
-    public function indexmypage(Request $request) {
-        // $product = new Product;
-        // $products = $product->all();
+    public function indexmypage() {
+        $user = new User;
+        $product = new Product;
+        $users =$user->where('role','0')->get();
+        $productall = $product->all();
+        $role = $user->where('id',Auth::id())->first();
+
+        if($role['role'] == 0 && $role['del_flg'] == 0){
+            return view('main');
+        }elseif($role['role'] == 0 && $role['del_flg'] ==1){
+            return view('stop');
+        }else{
+            return view('ownertop',[
+                'users' => $users,
+                'products' => $productall,
+            ]);
+        }
+    }
+
+    public function productDetail(Product $product) {
+        $like = Like::where('product_id',$product->id)->where('user_id',Auth::id())->first();
+        $instance = new Like;
+        $user = $product->join('users','products.user_id','users.id')->where('user_id',$product['user_id'])->first();
+
+        return view('product',[
+            'product' => $product,
+            'like' => $like,
+            'instance' => $instance,
+            'user' => $user,
+        ]);
+    }
+
+    public function productList(Request $request) {
         $title = $request->title;
         $min = $request->min;
         $max = $request->max;
+
         $user = new User;
         $product = new Product;
-        $products = $product->where('user_id',Auth::id())->get();
-        $users =$user->where('role','0')->get(); 
-        $role = $user->value('role');
-        $del_flg = $user->value('del_flg');
+        $products = $product->where('user_id',Auth::id())->orderBy('created_at','desc')->get();
+        
 
-
-        $productall = $product->all();
-        $role = $user->where('id',Auth::id())->first();
+        
 
         if(isset($title)){
             $products = $product->where('title','LIKE',"%{$title}%")->get();
@@ -69,37 +97,13 @@ class DisplayController extends Controller
             $products = $product->where('title','LIKE',"%{$title}%")->whereBetween('price',[$min,$max])->get();
         }
 
-        if($del_flg == 0){
-            if($role['role'] == 0){
-                return view('main',[
+                return view('product_list',[
                     'products' =>$products,
                     'user' => $users,
                     'title' => $title,
                     'min' => $min,
                     'max' => $max,
                 ]);
-            }else{
-                return view('ownertop',[
-                    'users' => $users,
-                    'products' => $productall,
-                ]);
-            }
-        }else{
-            return view('stop');
-        }
-    }
-
-    public function productDetail(Product $product) {
-        $like = Like::where('product_id',$product->id)->where('user_id',Auth::id())->first();
-        $instance = new Like;
-        $user = $product->join('users','products.user_id','users.id')->where('user_id',$product['user_id'])->first();
-// dd($user);
-        return view('product',[
-            'product' => $product,
-            'like' => $like,
-            'instance' => $instance,
-            'user' => $user,
-        ]);
     }
 
     public function buyHistory() {
@@ -167,10 +171,12 @@ class DisplayController extends Controller
 
     public function userProfile(User $user,Product $product) {
         $product = Product::where('user_id',$user['id'])->get();
+        $follow = Follow::where('user_id',Auth::id())->first();
         // dd($product);
         return view('user_profile',[
             'user' => $user,
             'products' => $product,
+            'follow' => $follow,
         ]);
 
     }

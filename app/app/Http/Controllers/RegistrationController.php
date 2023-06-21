@@ -127,7 +127,15 @@ class RegistrationController extends Controller
         $user->del_flg = 1;
         $user->save();
 
-        return redirect('/owner');
+        return redirect('/mypage');
+    }
+
+    public function backAccountflgForm(User $user){
+        
+        $user->del_flg = 0;
+        $user->save();
+
+        return redirect('/mypage');
     }
 
     public function deleteGoodsflgForm(Product $product){
@@ -135,7 +143,16 @@ class RegistrationController extends Controller
         $product->del_flg = 1;
         $product->save();
 
-        return redirect('/owner');
+        return redirect('/mypage');
+    }
+    
+
+    public function backGoodsflgForm(Product $product){
+
+        $product->del_flg = 0;
+        $product->save();
+
+        return redirect('/mypage');
     }
 
     public function ownerAccountForm(User $user) {

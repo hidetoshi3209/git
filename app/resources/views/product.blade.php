@@ -5,6 +5,7 @@
         <div class="col-4">
             <div class="d-flex flex-column bd-highlight mb-3">
                 <div class="p-2 bd-highlight"><img src="{{ asset('storage/product/'.$product['image']) }}"></div>
+                @auth
                 @if($instance->asr(Auth::user()->id,$product->id))
                 <p class="favorite-marke">
                     <button class="like-toggle loved" href="" data-productid="{{ $product->id }}"><i class="fas fa-heart"></i></button>
@@ -16,7 +17,7 @@
                     
                 </p>
                 @endif
-
+                @endauth
                 <div class="p-2 bd-highlight"><h3>{{$product['title']}}</h3></div>
                 <div class="p-2 bd-highlight">￥{{$product['price']}}</div>
                 <div class="p-2 bd-highlight">{{$product['comment']}}</div>

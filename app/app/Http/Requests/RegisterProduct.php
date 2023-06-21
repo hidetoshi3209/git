@@ -31,9 +31,12 @@ class RegisterProduct extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required|integer',
+            'image' => 'required',
+            'title' => 'required',
+            'price' => 'required|integer',
+            'comment' => 'required',
+            'comment' => 'required',
+            'condition' => 'required',
         ];
     }
 }
