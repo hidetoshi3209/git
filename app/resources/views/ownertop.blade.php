@@ -26,7 +26,7 @@
                 <div class="d-flex flex-column bd-highlight mb-3">
                     <div class="p-2 bd-highlight">
                         <a href="{{ route('goods.detail',['product' => $product['id']]) }}">
-                            <img src="{{ asset('storage/product/'.$product['image']) }}"></a>
+                            <img src="{{ asset('storage/product/'.$product['product_image']) }}"></a>
                         </a>
                     </div>
                     <div class="p-2 bd-highlight">{{$product['title']}}</div>

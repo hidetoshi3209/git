@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-4">
             <div class="d-flex flex-column bd-highlight mb-3">
-                <div class="p-2 bd-highlight"><img src="{{ asset('storage/product/'.$product['image']) }}"></div>
+                <div class="p-2 bd-highlight"><img src="{{ asset('storage/product/'.$product['product_image']) }}"></div>
                 @auth
                 @if($instance->asr(Auth::user()->id,$product->id))
                 <p class="favorite-marke">

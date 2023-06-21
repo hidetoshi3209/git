@@ -23,10 +23,6 @@
                 <label for="email" class="form-label">メールアドレス</label>
                 <input type="text" class="form-control" name="email" value="{{$account['email']}}">
             </div>
-            <!-- <div class="mb-3">
-                <label for="password" class="form-label">パスワード</label>
-                <input type="text" class="form-control" name="password" value="{{$account['password']}}">
-            </div> -->
             <div class="mb-3">
                 <label for="tel" class="form-label">電話番号</label>
                 <input type="text" class="form-control" name="tel" value="{{$account['tel']}}">

@@ -78,13 +78,9 @@ class DisplayController extends Controller
         $min = $request->min;
         $max = $request->max;
 
-        $user = new User;
         $product = new Product;
         $products = $product->where('user_id',Auth::id())->orderBy('created_at','desc')->get();
         
-
-        
-
         if(isset($title)){
             $products = $product->where('title','LIKE',"%{$title}%")->get();
         }
@@ -99,7 +95,6 @@ class DisplayController extends Controller
 
                 return view('product_list',[
                     'products' =>$products,
-                    'user' => $users,
                     'title' => $title,
                     'min' => $min,
                     'max' => $max,
@@ -110,7 +105,6 @@ class DisplayController extends Controller
         $instance = new Product;
 
         $record = $instance->join('buys','products.id','buys.product_id')->join('users','buys.user_id','users.id')
-        // ->select('products.*','users.*','buys.*','buys.user_id as buyuserid')->get();
         ->where('buys.user_id',Auth::id())->get();
 
         return view('buy_history',[
@@ -172,7 +166,7 @@ class DisplayController extends Controller
     public function userProfile(User $user,Product $product) {
         $product = Product::where('user_id',$user['id'])->get();
         $follow = Follow::where('user_id',Auth::id())->first();
-        // dd($product);
+
         return view('user_profile',[
             'user' => $user,
             'products' => $product,
