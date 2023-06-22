@@ -31,15 +31,15 @@
             </div>
             <div class="mb-3">
                 <label for="tel" class="form-label">電話番号</label>
-                <input type="text" class="form-control" name="tel" value="{{ old('tel') }}">
+                <input type="text" class="form-control" name="tel" value="{{ $user['tel'] }}">
             </div>
             <div class="mb-3">
                 <label for="postcode" class="form-label">郵便番号</label>
-                <input type="text" class="form-control" name="postcode" value="{{ old('postcode') }}">
+                <input type="text" class="form-control" name="postcode" value="{{ $user['postcode'] }}">
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">住所</label>
-                <input type="text" class='form-control' name='address'>
+                <input type="text" class='form-control' name='address' value="{{ $user['address'] }}">
             </div>
             <div class='d-flex justify-content-around mt-3'>
                 <a href="{{route('product.detail', ['product' => $product['id']] )}}">

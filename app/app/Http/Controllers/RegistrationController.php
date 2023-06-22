@@ -29,7 +29,7 @@ class RegistrationController extends Controller
         // 取得したファイル名で保存
         $request->file('image')->storeAs('public/' . $dir, $file_name);
         
-        $product->image = $file_name;
+        $product->product_image = $file_name;
         $product->title = $request->title;
         $product->price = $request->price;
         $product->comment = $request->comment;
@@ -67,13 +67,11 @@ class RegistrationController extends Controller
         $buy->product_id = $productId;
 
         $buy->save();
-        // Auth::user()->buys()->save($buy);
 
         return redirect('/mypage');
     }
 
     public function accountForm(User $user) {
-        // dd($user['name']);
         return view('account',[
             'account' => $user,
         ]);
@@ -175,25 +173,6 @@ class RegistrationController extends Controller
     }
 
     public function like(Request $request) {
-//         $user_id = Auth::id();
-//         // $product_id = $request->product_id;
-//         $already_liked = Like::where('user_id',Auth::id())->where('product_id',$product_id)->first();
-// // dd($already_liked);
-//         if(!$already_liked) {
-//             Like::where('product_id',$product_id)->where('user_id',Auth::id())->delete();
-//         } else {
-            
-//             $like = new Like;
-//             $like->product_id = $product_id;
-//             $like->user_id = $user_id;
-//             $like->save();
-//         }
-
-//         $product_like_count = Product::withCount('like')->findOrFail($product_id)->like_count;
-//         $param = [
-//             'product_like_count' => $product_like_count,
-//         ];
-//         return response()->json($param);
 
 $id = Auth::user()->id;
 $product_id = $request->product;

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-4">
             <div class="d-flex flex-column bd-highlight mb-3">
-                <div class="p-2 bd-highlight"><img src="{{ asset('storage/profile/'.$user['image']) }}"></div>
+                <div class="p-2 bd-highlight"><img src="{{ asset('storage/profile/'.$user['image']) }}" class="rounded-circle img-fluid max-width: 100%;"></div>
                 <div class="p-2 bd-highlight">{{$user['name']}}</div>
                 @if($user['del_flg'] == 0)
                 <a href="{{route('delete.accountflg', ['user' => $user['id']] )}}">

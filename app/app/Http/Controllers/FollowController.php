@@ -18,9 +18,9 @@ class FollowController extends Controller
     public function index()
     {
         $instance = new User;
-        $record = $instance->join('follows','users.id','follows.user_id')
+        $record = $instance->join('follows','follows.id','users.id')
         ->where('follows.user_id',Auth::id())->get();
-
+        
         return view('follow',[
             'follows' => $record
         ]);

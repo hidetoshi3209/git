@@ -5,9 +5,10 @@
         <div class="col-4">
             <div class="d-flex flex-column bd-highlight mb-3">
                 <div class="p-2 bd-highlight">
-                    <img src="{{ asset('storage/profile/'.$user['image']) }}"></a>
+                    <img src="{{ asset('storage/profile/'.$user['image']) }}" class="rounded-circle"></a>
                 </div>
-                <div class="p-2 bd-highlight">{{$user['name']}}</div>
+                <div class="p-2 bd-highlight">ユーザー名：{{$user['name']}}</div>
+                <div class="p-2 bd-highlight">プロフィール</div>
                 <div class="p-2 bd-highlight">{{$user['profile']}}</div>
                 @if(empty($follow))
                 <form action="{{route('follow.update',['follow' => $user['id']])}}" method="post">
@@ -27,13 +28,15 @@
             </div>
         </div>
     </div>
+    <hr>
     <div class="row">
+        <div>出品商品</div>
     @foreach($products as $product)
         @if($product['del_flg'] == 0)
             <div class="col-4">
                 <div class="d-flex flex-column bd-highlight mb-3">
                     <div class="p-2 bd-highlight">
-                        <a href="{{ route('product.detail', ['product' => $product['id']]) }}"><img src="{{ asset('storage/product/'.$product['product_image']) }}"></a>
+                        <a href="{{ route('product.detail', ['product' => $product['id']]) }}"><img src="{{ asset('storage/product/'.$product['product_image']) }}" class="img-fluid max-width: 100%;"></a>
                     </div>
                     <div class="p-2 bd-highlight">￥{{$product['price']}}</div>
                     <div class="p-2 bd-highlight">{{$product['title']}}</div>

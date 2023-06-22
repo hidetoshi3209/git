@@ -9,7 +9,7 @@
     </div>
     @endif
     <div class="row justify-content-center">
-        <div class="p-2 bd-highlight"><img src="{{ asset('storage/profile/'.$account['image']) }}"></div>
+        <div class="p-2 bd-highlight"><img src="{{ asset('storage/profile/'.$account['image']) }}" class="rounded-circle"></div>
         <a href="{{route('edit.profile',['user' => $account['id']] )}}">
             <button class="btn btn-secondary">プロフィール変更</button>
         </a>

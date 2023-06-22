@@ -18,6 +18,7 @@ class DisplayController extends Controller
         $title = $request->title;
         $min = $request->min;
         $max = $request->max;
+
         $product = new Product;
         $products = $product->orderBy('created_at','desc')->get();
 
@@ -41,15 +42,38 @@ class DisplayController extends Controller
         ]);
     }
 
-    public function indexmypage() {
+    public function indexmypage(Request $request) {
+        $title = $request->title;
+        $min = $request->min;
+        $max = $request->max;
+
         $user = new User;
         $product = new Product;
         $users =$user->where('role','0')->get();
         $productall = $product->all();
         $role = $user->where('id',Auth::id())->first();
 
+        if(isset($title)){
+            $products = $product->where('title','LIKE',"%{$title}%")->get();
+        }
+
+        if(isset($min) && isset($max)){
+            $products = $product->whereBetween('price',[$min,$max])->get();
+        }
+
+        if(isset($title) && isset($min) && isset($max)){
+            $products = $product->where('title','LIKE',"%{$title}%")->whereBetween('price',[$min,$max])->get();
+        }
+
         if($role['role'] == 0 && $role['del_flg'] == 0){
-            return view('main');
+            
+            $products = $product->orderBy('created_at','desc')->get();
+            return view('main',[
+                'products' =>$products,
+            'title' => $title,
+            'min' => $min,
+            'max' => $max,
+            ]);
         }elseif($role['role'] == 0 && $role['del_flg'] ==1){
             return view('stop');
         }else{
